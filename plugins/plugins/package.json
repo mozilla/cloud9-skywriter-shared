@@ -1,0 +1,8 @@
+{
+    "name": "plugins",
+    "main": "index",
+    "environments": {
+        "main": true,
+        "worker": true 
+    }
+}
