@@ -11,7 +11,7 @@
  * for the specific language governing rights and limitations under the
  * License.
  *
- * The Original Code is Cloud9 IDE/Skywriter Shared.
+ * The Original Code is Mozilla Skywriter.
  *
  * The Initial Developer of the Original Code is
  * Mozilla.
@@ -19,6 +19,7 @@
  * the Initial Developer. All Rights Reserved.
  *
  * Contributor(s):
+ *   Joe Walker (jwalker@mozilla.com)
  *   Kevin Dangoor (kdangoor@mozilla.com)
  *
  * Alternatively, the contents of this file may be used under the terms of
@@ -35,32 +36,34 @@
  *
  * ***** END LICENSE BLOCK ***** */
 
+define(function(require, exports, module) {
 
-require.ready(function() {
-    var knownPlugins = ["util", "types"];
+var basic = require("types/basic");
+
+var typeRegistry = {};
+
+exports.addType = function(name, typeObj) {
+    typeRegistry[name] = typeObj;
+};
+
+exports.getType = function(name) {
+    return typeRegistry[name];
+};
+
+exports.init = function() {
+    // TODO: register this extension point.
     
-    var pluginPackageInfo = [
-        {
-            name: "plugins",
-            main: "index"
-        }
-    ];
+    // catalog.addExtensionPoint("type", {
+    //     "description":
+    //         "Commands can accept various arguments that the user enters or that are automatically supplied by the environment. Those arguments have types that define how they are supplied or completed. The pointer points to an object with methods convert(str value) and getDefault(). Both functions have `this` set to the command's `takes` parameter. If getDefault is not defined, the default on the command's `takes` is used, if there is one. The object can have a noInput property that is set to true to reflect that this type is provided directly by the system. getDefault must be defined in that case.",
+    //     "indexOn": "name"
+    // });
     
-    // set up RequireJS to know that our plugins all have a main module called "index"
-    knownPlugins.forEach(function(pluginName) {
-        pluginPackageInfo.push({
-            name: pluginName,
-            main: "index"
-        });
-    });
-    
-    require({
-        packagePaths: {
-            "../plugins": pluginPackageInfo
-        }
-    });
-    require(["plugins"], function() {
-        var pluginsModule = require("plugins");
-        pluginsModule.catalog.initializePlugins(knownPlugins);
-    });
+    exports.addType("text", basic.text);
+    exports.addType("number", basic.number);
+    exports.addType("boolean", basic.bool);
+    exports.addType("object", basic.object);
+    exports.addType("selection", basic.selection);
+};
+
 });

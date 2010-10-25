@@ -35,8 +35,44 @@
  *
  * ***** END LICENSE BLOCK ***** */
 
-define(function(require, module, exports) {
-    var newElement = document.createElement("div");
-    newElement.innerHTML = "hi there.";
-    document.body.appendChild(newElement);
+define(function(require, exports, module) {
+
+exports.Plugin = function(name) {
+    this.name = name;
+    this.initialized = false;
+};
+
+exports.Plugin.prototype = {
+    initialize: function() {
+        if (this.initialized) {
+            return;
+        }
+        require([this.name], function(pluginModule) {
+            if (pluginModule.init) {
+                pluginModule.init();
+            }
+            this.initialized = true;
+        }.bind(this));
+    }
+};
+
+exports.PluginCatalog = function() {
+    this.plugins = {};
+};
+
+exports.PluginCatalog.prototype = {
+    initializePlugins: function(pluginList) {
+        pluginList.forEach(function(pluginName) {
+            var plugin = this.plugins[pluginName];
+            if (plugin === undefined) {
+                plugin = new exports.Plugin(pluginName);
+                this.plugins[pluginName] = plugin;
+            }
+            plugin.initialize();
+        }.bind(this));
+    }
+};
+
+exports.catalog = new exports.PluginCatalog();
+
 });

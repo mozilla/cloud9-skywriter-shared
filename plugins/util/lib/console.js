@@ -11,7 +11,7 @@
  * for the specific language governing rights and limitations under the
  * License.
  *
- * The Original Code is Cloud9 IDE/Skywriter Shared.
+ * The Original Code is Mozilla Skywriter.
  *
  * The Initial Developer of the Original Code is
  * Mozilla.
@@ -19,7 +19,9 @@
  * the Initial Developer. All Rights Reserved.
  *
  * Contributor(s):
- *   Kevin Dangoor (kdangoor@mozilla.com)
+ *   Joe Walker (jwalker@mozilla.com)
+ *   Patrick Walton (pwalton@mozilla.com)
+ *   Julian Viereck (jviereck@mozilla.com)
  *
  * Alternatively, the contents of this file may be used under the terms of
  * either the GNU General Public License Version 2 or later (the "GPL"), or
@@ -34,33 +36,41 @@
  * the terms of any one of the MPL, the GPL or the LGPL.
  *
  * ***** END LICENSE BLOCK ***** */
+define(function(require, exports, module) {
+    
+/**
+ * This object represents a "safe console" object that forwards debugging
+ * messages appropriately without creating a dependency on Firebug in Firefox.
+ */
 
+var noop = function() {};
 
-require.ready(function() {
-    var knownPlugins = ["util", "types"];
-    
-    var pluginPackageInfo = [
-        {
-            name: "plugins",
-            main: "index"
+// These are the functions that are available in Chrome 4/5, Safari 4
+// and Firefox 3.6. Don't add to this list without checking browser support
+var NAMES = [
+    "assert", "count", "debug", "dir", "dirxml", "error", "group", "groupEnd",
+    "info", "log", "profile", "profileEnd", "time", "timeEnd", "trace", "warn"
+];
+
+if (typeof(window) === 'undefined') {
+    // We're in a web worker. Forward to the main thread so the messages
+    // will show up.
+    NAMES.forEach(function(name) {
+        exports[name] = function() {
+            var args = Array.prototype.slice.call(arguments);
+            var msg = { op: 'log', method: name, args: args };
+            postMessage(JSON.stringify(msg));
+        };
+    });
+} else {
+    // For each of the console functions, copy them if they exist, stub if not
+    NAMES.forEach(function(name) {
+        if (window.console && window.console[name]) {
+            exports[name] = window.console[name].bind(window.console);
+        } else {
+            exports[name] = noop;
         }
-    ];
-    
-    // set up RequireJS to know that our plugins all have a main module called "index"
-    knownPlugins.forEach(function(pluginName) {
-        pluginPackageInfo.push({
-            name: pluginName,
-            main: "index"
-        });
     });
-    
-    require({
-        packagePaths: {
-            "../plugins": pluginPackageInfo
-        }
-    });
-    require(["plugins"], function() {
-        var pluginsModule = require("plugins");
-        pluginsModule.catalog.initializePlugins(knownPlugins);
-    });
+}
+
 });
