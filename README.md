@@ -15,3 +15,4 @@ Mozilla Public License (MPL), the GNU General Public License (GPL) or the
 GNU Lesser General Public License (LGPL).
 
 Please see LICENSE.txt for a copy of the MPL.
+
