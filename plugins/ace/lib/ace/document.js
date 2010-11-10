@@ -38,7 +38,7 @@
 define(function(require, exports, module) {
 
 var oop = require("ace/lib/oop");
-var lang = require("ace/lib/lang");
+var lang = require("ace/lib/lang").lang;
 var MEventEmitter = require("ace/event_emitter").MEventEmitter;
 var Selection = require("ace/selection");
 var TextMode = require("ace/mode/text");
