@@ -94,3 +94,16 @@ Firefox's [Bootstrapped Extensions](https://developer.mozilla.org/en/Extensions/
 There is no relationship between Skywriter plugins and Firefox extensions, but
 the interface described on that page matches exactly what we need.
 
+## Events ##
+
+Node has a nice [Event Emitter](https://github.com/ry/node/blob/master/lib/events.js)
+API that we will use directly. We'll augment this with a DOM-like API that
+is both familiar to browser JavaScript programmers and also used in APF
+(Ajax.org's GUI toolkit). This means that in addition to the
+[Event Emitter API](http://nodejs.org/api.html#eventemitter-13) there will also
+be:
+
+* addEventListener
+* (others?) TODO
+
+[Email discussion](http://groups.google.com/group/skywriter-core/browse_thread/thread/aa546535613c236)
