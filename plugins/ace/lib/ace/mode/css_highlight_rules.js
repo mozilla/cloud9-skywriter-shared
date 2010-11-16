@@ -229,5 +229,6 @@ var CssHighlightRules = function() {
 
 oop.inherits(CssHighlightRules, TextHighlightRules);
 
-return CssHighlightRules;
+exports.CssHighlightRules = CssHighlightRules;
+
 });
