@@ -10,7 +10,7 @@ require.def([
      "ace/lib/oop",
      "ace/event_emitter"
  ], function(
-     oop,
+     oopMod,
      event_emitter
  ) {
 
@@ -18,7 +18,7 @@ var MEventEmitter = event_emitter.MEventEmitter;
   
 var EventEmitter = function() {};
 
-oop.implement(EventEmitter.prototype, MEventEmitter);
+oopMod.oop.implement(EventEmitter.prototype, MEventEmitter);
 
 var EventEmitterTest = new TestCase("EventEmitterTest", {
     "test: dispatch event with no data" : function() {

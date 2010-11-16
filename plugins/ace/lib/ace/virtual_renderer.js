@@ -37,7 +37,7 @@
 
 define(function(require, exports, module) {
 
-var oop = require("ace/lib/oop");
+var oop = require("ace/lib/oop").oop;
 var lang = require("ace/lib/lang").lang;
 var dom = require("ace/lib/dom").dom;
 var event = require("ace/lib/event").event;

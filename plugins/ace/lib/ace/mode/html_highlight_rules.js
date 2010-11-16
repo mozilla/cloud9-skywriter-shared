@@ -37,7 +37,7 @@
 
 define(function(require, exports, module) {
 
-var oop = require("ace/lib/oop");
+var oop = require("ace/lib/oop").oop;
 var CssHighlightRules = require("ace/mode/css_highlight_rules");
 var JavaScriptHighlightRules = require("ace/mode/javascript_highlight_rules");
 var TextHighlightRules = require("ace/mode/text_highlight_rules");

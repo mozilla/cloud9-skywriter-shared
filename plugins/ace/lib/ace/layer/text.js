@@ -37,7 +37,7 @@
 
 define(function(require, exports, module) {
 
-var oop = require("ace/lib/oop");
+var oop = require("ace/lib/oop").oop;
 var dom = require("ace/lib/dom").dom;
 var MEventEmitter = require("ace/event_emitter").MEventEmitter;
 

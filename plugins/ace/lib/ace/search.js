@@ -38,7 +38,7 @@
 define(function(require, exports, module) {
 
 var lang = require("ace/lib/lang").lang;
-var oop = require("ace/lib/oop");
+var oop = require("ace/lib/oop").oop;
 var Range = require("ace/range");
 
 var Search = function() {
