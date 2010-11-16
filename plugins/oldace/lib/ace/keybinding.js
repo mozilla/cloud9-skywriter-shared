@@ -42,7 +42,7 @@ var event = require("ace/lib/event").event;
 var default_mac = require("ace/conf/keybindings/default_mac").bindings;
 var default_win = require("ace/conf/keybindings/default_win").bindings;
 var PluginManager = require("ace/plugin_manager");
-
+require("ace/commands/default_commands");
 
 var KeyBinding = function(element, editor, config) {
     this.setConfig(config);

@@ -6,19 +6,14 @@
  * @author Fabian Jakobs <fabian AT ajax DOT org>
  */
 
-require.def([
-     "ace/lib/oop",
-     "ace/event_emitter"
- ], function(
-     oopMod,
-     event_emitter
- ) {
+define(function(require, exports, module) {
 
-var MEventEmitter = event_emitter.MEventEmitter;
-  
+var MEventEmitter = require("ace/event_emitter").MEventEmitter;
+var oop = require("ace/lib/oop").oop;
+
 var EventEmitter = function() {};
 
-oopMod.oop.implement(EventEmitter.prototype, MEventEmitter);
+oop.implement(EventEmitter.prototype, MEventEmitter);
 
 var EventEmitterTest = new TestCase("EventEmitterTest", {
     "test: dispatch event with no data" : function() {
