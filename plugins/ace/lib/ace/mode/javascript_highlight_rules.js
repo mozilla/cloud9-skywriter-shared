@@ -38,7 +38,7 @@
 define(function(require, exports, module) {
 
 var oop = require("ace/lib/oop");
-var lang = require("ace/lib/lang");
+var lang = require("ace/lib/lang").lang;
 var DocCommentHighlightRules = require("ace/mode/doc_comment_highlight_rules");
 var TextHighlightRules = require("ace/mode/text_highlight_rules");
 

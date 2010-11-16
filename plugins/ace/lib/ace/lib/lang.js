@@ -122,5 +122,5 @@ define(function(require, exports, module) {
       };
     };
 
-    return lang;
+    exports.lang = lang;
 });
